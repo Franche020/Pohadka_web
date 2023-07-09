@@ -28,7 +28,8 @@ class ActiveRecord {
     // Validación que se hereda en modelos
     public function validar() {
         static::$alertas = [];
-        return static::$alertas;
+
+        return [static::$alertas];
     }
 
     // Consulta SQL para crear un objeto en Memoria (Active Record)
@@ -112,28 +113,29 @@ class ActiveRecord {
 
     // Busca un registro por su id
     public static function find($id) {
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = ${id}";
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = {$id}";
+        // debuguear($query);
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Obtener Registros con cierta cantidad
     public static function get($limite) {
-        $query = "SELECT * FROM " . static::$tabla . " LIMIT ${limite} ORDER BY id DESC" ;
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT {$limite} ORDER BY id DESC" ;
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Busqueda Where con Columna 
     public static function where($columna, $valor) {
-        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // crea un nuevo registro
     public function crear() {
-        // Sanitizar los datos
+        // Sanitizar los datos   
         $atributos = $this->sanitizarAtributos();
 
         // Insertar en la base de datos
@@ -178,6 +180,7 @@ class ActiveRecord {
     // Eliminar un Registro por su ID
     public function eliminar() {
         $query = "DELETE FROM "  . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        // debuguear($query);
         $resultado = self::$db->query($query);
         return $resultado;
     }

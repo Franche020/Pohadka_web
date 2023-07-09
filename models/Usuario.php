@@ -4,7 +4,7 @@ namespace Model;
 
 class Usuario extends ActiveRecord {
     protected static $tabla = 'usuarios';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'confirmado', 'token', 'admin'];
+    protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'telefono' ,'noRegistrado', 'confirmado','admin', 'token'];
     
     public function __construct($args = [])
     {
@@ -13,11 +13,23 @@ class Usuario extends ActiveRecord {
         $this->apellido = $args['apellido'] ?? '';
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
-        $this->password2 = $args['password2'] ?? '';
+        $this->telefono = $args['telefono'] ?? '';
+        $this->noRegistrado = $args['noRegistrado'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
-        $this->token = $args['token'] ?? '';
         $this->admin = $args['admin'] ?? '';
+        $this->token = $args['token'] ?? '';
     }
+
+    public $id;
+    public $nombre;
+    public $apellido;
+    public $email;
+    public $password;
+    public $telefono;
+    public $noRegistrado;
+    public $confirmado;
+    public $admin;
+    public $token;
 
     // Validar el Login de Usuarios
     public function validarLogin() {
@@ -51,9 +63,9 @@ class Usuario extends ActiveRecord {
         if(strlen($this->password) < 6) {
             self::$alertas['error'][] = 'El password debe contener al menos 6 caracteres';
         }
-        if($this->password !== $this->password2) {
-            self::$alertas['error'][] = 'Los password son diferentes';
-        }
+        // if($this->password !== $this->password2) {
+        //     self::$alertas['error'][] = 'Los password son diferentes';
+        // }
         return self::$alertas;
     }
 
@@ -79,22 +91,22 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
-    public function nuevo_password() : array {
-        if(!$this->password_actual) {
-            self::$alertas['error'][] = 'El Password Actual no puede ir vacio';
-        }
-        if(!$this->password_nuevo) {
-            self::$alertas['error'][] = 'El Password Nuevo no puede ir vacio';
-        }
-        if(strlen($this->password_nuevo) < 6) {
-            self::$alertas['error'][] = 'El Password debe contener al menos 6 caracteres';
-        }
-        return self::$alertas;
-    }
+    // public function nuevo_password() : array {
+    //     if(!$this->password_actual) {
+    //         self::$alertas['error'][] = 'El Password Actual no puede ir vacio';
+    //     }
+    //     if(!$this->password_nuevo) {
+    //         self::$alertas['error'][] = 'El Password Nuevo no puede ir vacio';
+    //     }
+    //     if(strlen($this->password_nuevo) < 6) {
+    //         self::$alertas['error'][] = 'El Password debe contener al menos 6 caracteres';
+    //     }
+    //     return self::$alertas;
+    // }
 
     // Comprobar el password
-    public function comprobar_password() : bool {
-        return password_verify($this->password_actual, $this->password );
+    public function comprobar_password($password) : bool {
+        return password_verify($password, $this->password );
     }
 
     // Hashea el password
