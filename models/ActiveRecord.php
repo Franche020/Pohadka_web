@@ -118,6 +118,19 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+    // Consulta plana SQL
+    public static function SQL ($query) {
+        $data = [];
+        $resultado = self::$db->query($query);
+        while ($row = $resultado->fetch_assoc()){
+		    $data[] = $row;
+        }
+        //debuguear($data);
+        // liberar la memoria
+        $resultado->free();
+
+        return  $data;
+    }
 
     // Obtener Registros con cierta cantidad
     public static function get($limite) {
@@ -144,6 +157,7 @@ class ActiveRecord {
         $query .= " ) VALUES (' "; 
         $query .= join("', '", array_values($atributos));
         $query .= " ') ";
+        
 
         // debuguear($query); // Descomentar si no te funciona algo
 

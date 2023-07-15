@@ -1,0 +1,18 @@
+.admin-imagen{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    div {
+        padding: 0.5rem;
+        flex-basis: calc(50% - 1rem);
+        .boton {
+            width: 90%;
+        }
+    }
+    img {
+        padding: 1rem;
+        max-height: 100%;
+        max-width: 100%;
+        flex-basis: calc(50% - 1rem);
+    }
+}

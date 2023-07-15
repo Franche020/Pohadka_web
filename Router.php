@@ -50,4 +50,19 @@ class Router
 
         include_once __DIR__ . '/views/layout.php';
     }
+
+    public function renderOverlay($view, $datos = [])
+    {
+        foreach ($datos as $key => $value) {
+            $$key = $value; 
+        }
+
+        ob_start(); 
+
+        include_once __DIR__ . "/views/$view.php";
+
+        $contenido = ob_get_clean(); // Limpia el Buffer
+
+        include_once __DIR__ . '/views/overlay.php';
+    }
 }

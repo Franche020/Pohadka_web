@@ -32,7 +32,7 @@
     transition-property: background-color;
     transition-duration: .3s;
     text-align: center;
-    width: 100%;
+    max-width: 100%;
     display: inline-block;
 
     &:hover {

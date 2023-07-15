@@ -1,0 +1,21 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+#mapa{
+
+    .avaiable{
+        fill: #c3e6d7;
+        cursor: pointer;
+        &:hover {
+            fill: darken( #c3e6d7, 10% );
+        }
+    }
+    .selected{
+        fill: #62b7bc;
+        cursor: pointer;
+    }
+    .reserved{
+        fill: v.$rojo;
+    }
+
+}

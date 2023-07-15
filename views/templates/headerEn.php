@@ -1,5 +1,5 @@
 
-<header class="contenedor navegacion">
+<header class="navegacion card">
     <a href="/">
         <h1>Pohadka</h1>
     </a>

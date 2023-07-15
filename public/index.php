@@ -2,11 +2,13 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\APIController;
 use Controllers\EventosController;
 use Controllers\HabitacionController;
 use Controllers\ImagesController;
 use MVC\Router;
 use Controllers\PaginaController;
+use Controllers\ReservasController;
 
 $router = new Router();
 
@@ -14,6 +16,7 @@ $router = new Router();
 // Pagina principal
 
 $router->get('/', [PaginaController::class, 'index']);
+$router->get('/room', [PaginaController::class, 'room']);
 
 // Eventos
 $router->get('/events', [EventosController::class, 'index']);
@@ -24,9 +27,12 @@ $router->post('/admin/events/create', [EventosController::class , 'create']);
 $router->post('/admin/events/delete', [EventosController::class, 'delete']);
 $router->get('/admin/events/update',[EventosController::class, 'update']);
 $router->post('/admin/events/update',[EventosController::class, 'update']);
+$router->post('/admin/events/image/delete',[ImagesController::class, 'deleteEventImage']);
+$router->get('/admin/events/image/update',[ImagesController::class, 'updateEventImage']);
+$router->post('/admin/events/image/update',[ImagesController::class, 'updateEventImage']);
 
 // Habitaciones
-$router->get('/acommodation', [HabitacionController::class, 'index']);
+$router->get('/acommodation', [ReservasController::class, 'index']);
     // Admin Habitaciones
 $router->get('/admin/acommodation', [HabitacionController::class, 'admin']);
 $router->get('/admin/acommodation/create', [HabitacionController::class, 'create']);
@@ -34,6 +40,16 @@ $router->post('/admin/acommodation/create', [HabitacionController::class, 'creat
 $router->post('/admin/acommodation/delete', [HabitacionController::class, 'delete']);
 $router->get('/admin/acommodation/update', [HabitacionController::class, 'update']);
 $router->post('/admin/acommodation/update', [HabitacionController::class, 'update']);
+$router->post('/admin/acommodation/image/delete',[ImagesController::class, 'deleteAcommodationImage']);
+$router->get('/admin/acommodation/image/update',[ImagesController::class, 'updateAcommodationImage']);
+$router->post('/admin/acommodation/image/update',[ImagesController::class, 'updateAcommodationImage']);
+
+// API
+$router->post('/api/rooms', [APIController::class, 'rooms']);
+$router->post('/api/room', [APIController::class, 'room']);
+
+// Admin
+$router->get('/admin', [HabitacionController::class, 'index']);
 
 // Login
 $router->get('/login', [AuthController::class, 'login']);
