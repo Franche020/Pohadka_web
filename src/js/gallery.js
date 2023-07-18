@@ -1,4 +1,4 @@
-//const imagen
+//  const imagen
 
 // Galeria
 document.addEventListener('DOMContentLoaded', function () {
@@ -26,7 +26,7 @@ function iniciarGaleria () {
     const body = document.querySelector("body");
     const botones = document.createElement("DIV")
     const cerrarModal = document.createElement("SVG");
-    const siguienteModal = document.createElement("SVG");
+    const siguienteModal   = document.createElement("SVG");
     const anteriorModal = document.createElement("SVG");
     mostrarImagen(id);
   

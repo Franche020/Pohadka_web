@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Habitacion;
+use Model\FotosHabitaciones;
 use Model\ReservasHabitaciones;
 
 class APIController {
@@ -32,9 +33,15 @@ class APIController {
         }
     }
     public static function room () {
+
         $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
 
-        $habitacion = Habitacion::find($id);
+        $habitacion = Habitacion::getRoom($id); // TODO Revisar esto tras probar con pagina controller
+        $fotosHabitacion = FotosHabitaciones::getFotosbyRoom($habitacion['id']);
+
+        $habitacion['fotosHabitacion'] = $fotosHabitacion;
+
+        
         if(empty($habitacion)) {
             $habitacion = null;
             echo json_encode(['habitacion'=>$habitacion]);

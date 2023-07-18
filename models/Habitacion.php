@@ -70,4 +70,14 @@ class Habitacion extends ActiveRecord{
 
         return self::$alertas;
     }
+
+    public static function getRoom (string $idCastillo) :array {
+        $query = 'SELECT nombre, descripcionIngles, descripcionCheco, capacidad, precio, castillo, id';
+        $query.=" FROM " . static::$tabla . " WHERE castillo = ".$idCastillo. " LIMIT 1";
+        
+        $resultado = self::SQL($query);
+        $resultado = array_shift($resultado);
+
+        return $resultado;
+    }
 }

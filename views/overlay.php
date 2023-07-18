@@ -16,6 +16,7 @@
 </head>
 <body class="overlay">
     <?php 
+        // TODO Eliminar, se va a convertir en API
         echo $contenido;
         include_once __DIR__ .'/templates/footerEn.php'; 
     ?>

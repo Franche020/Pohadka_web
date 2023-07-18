@@ -20,7 +20,7 @@
     <?php
     }/*
     // * Desactivado por que igual se puede hacer con Javascript e Iframes
-    // TODO en el siguiente formulario he de meter para que seleccione la habitacion o que vuelva atras con las fechas
+    // TODO eliminar se va a convertir en  API
     
     <form action="" method="GET">
         <input type="number" value="<?php echo $habitacion->id; ?>" hidden >

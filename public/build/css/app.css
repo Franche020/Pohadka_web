@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -512,6 +513,104 @@ form fieldset {
 }
 #mapa .reserved {
   fill: #8b1212;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Aquí puedes ajustar la transparencia cambiando el valor del canal alfa (0.5 en este caso) */
+  z-index: 2; /* Asegúrate de que el valor del z-index sea superior al del resto del contenido de la página para que el overlay esté en primer plano */
+  display: flex;
+}
+.overlay .card {
+  overflow: auto;
+  margin: 1rem auto;
+  position: relative;
+  padding: 1rem;
+  height: auto;
+}
+.overlay .card h3 {
+  margin-top: 0;
+  width: 85%;
+}
+.overlay .card img {
+  border-radius: 0.5rem;
+}
+.overlay .pax {
+  font-weight: 700;
+  font-size: 2rem;
+}
+.overlay .price {
+  display: inline;
+  font-weight: 700;
+  font-size: 2rem;
+}
+.overlay span {
+  font-weight: 400;
+  font-size: 1.6rem;
+}
+.overlay .cerrar {
+  position: absolute;
+  right: 2.7rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+.overlay .cerrar svg {
+  color: #393939;
+  border: 2px solid #393939;
+  border-radius: 0.5rem;
+}
+.overlay .boton {
+  width: 100%;
+  margin: 0;
+}
+
+.div-imagen {
+  margin: 2rem auto;
+  position: relative;
+}
+.div-imagen .siguiente-foto {
+  cursor: pointer;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  right: 1rem;
+  top: calc(50% - 1.8rem);
+  background-color: rgba(244, 240, 233, 0.7);
+}
+.div-imagen .siguiente-foto svg {
+  height: 2rem;
+  width: 2rem;
+}
+.div-imagen .anterior-foto {
+  cursor: pointer;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  left: 1rem;
+  top: calc(50% - 1.8rem);
+  background-color: rgba(244, 240, 233, 0.7);
+}
+.div-imagen .anterior-foto svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.no-foto {
+  background-color: #E2E0DD;
+  padding: 10rem 2rem;
+  margin: 2rem auto;
+  text-align: center;
+  border: 1px solid #8b1212;
+  border-radius: 0.5rem;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 header {
