@@ -8,13 +8,21 @@ class ReservasController {
 
     public static function index(Router $router) {
 
-        //TODO obtener una consulta en formato JSON de la ocupacion para el rango seleccionado (dia a dia y si solo uno está ocupado marcar como no disponible en el json)
-        //TODO crear API para esta funcion
-        //TODO Leer el json en javascript y actualizar los estados de las habitaciones coloreando el svg
-        
-
         $router->render('acommodation/index', [
 
         ]);
+
+    }
+    public static function confirm (Router $router) {
+       $roomNumber = validarORedireccionar('/','roomNumber');
+       validarFecha($_GET['checkIn']) ? $checkIn = $_GET['checkIn'] : header('location: /acommodation');
+       validarFecha($_GET['checkOut']) ? $checkOut = $_GET['checkOut'] : header('location: /acommodation') ;
+
+
+       // TODO Comprobar si el usuario esta logado
+
+       // TODO si no lo esta crear un usuario temporal
+
+       // TODO registrar la reserva
     }
 }

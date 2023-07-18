@@ -42,7 +42,7 @@ function htmlLang(string $lenguaje) :string {
 
 function validarFecha(string $fecha) :bool{
     $date = strtotime($fecha);
-    if ($fecha === false){
+    if ($date === false){
         return false;
     }
     return true;

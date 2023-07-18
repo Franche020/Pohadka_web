@@ -33,6 +33,8 @@ $router->post('/admin/events/image/update',[ImagesController::class, 'updateEven
 
 // Habitaciones
 $router->get('/acommodation', [ReservasController::class, 'index']);
+$router->get('/acommodation/confirm', [ReservasController::class, 'confirm']);
+$router->post('/acommodation/confirm', [ReservasController::class, 'confirm']);
     // Admin Habitaciones
 $router->get('/admin/acommodation', [HabitacionController::class, 'admin']);
 $router->get('/admin/acommodation/create', [HabitacionController::class, 'create']);
