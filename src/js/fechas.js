@@ -342,7 +342,7 @@ function imagenHabitacion(divImagen, fotosHabitacion, index) {
         return;
       }
       // volver a llamar la funcion imagenHabitacion
-      imagenHabitacion(card, fotosHabitacion, newIndex);
+      imagenHabitacion(divImagen, fotosHabitacion, newIndex);
       imagen.remove();
     })
     .catch();
