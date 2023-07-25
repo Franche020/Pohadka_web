@@ -9,7 +9,7 @@ use MVC\Router;
 class PaginaController {
 
     public static function index(Router $router) {
-    
+        startSession();
         $router->render('/paginas/index', [
 
         ]);

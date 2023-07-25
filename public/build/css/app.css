@@ -372,6 +372,18 @@ h3 {
   text-align: center;
 }
 
+.flex-col-separacion-10 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.flex-col-separacion-20 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .boton {
   background-color: #88C34A;
   padding: 1.5rem 4rem;
@@ -423,6 +435,16 @@ h3 {
   width: 95%;
 }
 
+.botonera--horizontal2 {
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+.botonera--horizontal2 .boton {
+  flex-basis: 50%;
+  margin: 0;
+}
+
 .card {
   margin: 0 auto;
   border-radius: 1rem;
@@ -430,18 +452,6 @@ h3 {
   width: 90%;
   background-color: #F4F0E9;
   padding: 2rem 1rem;
-}
-
-.flex-col-separacion-10 {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.flex-col-separacion-20 {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 
 .admin-imagen {
@@ -470,19 +480,20 @@ form fieldset {
 }
 
 .entrada {
-  margin: 1rem;
+  margin: 1rem 0;
   gap: 0.5rem;
   display: flex;
   flex-direction: column;
 }
-.entrada p {
-  background-color: #fff;
-  margin: 0;
+.entrada input {
+  padding: 2rem 4rem;
+  background-color: #E2E0DD;
+  border: none;
+  border-radius: 0.5rem;
 }
-.entrada .editor-border {
-  border: 1px solid #B2AA9D;
-  padding: 0;
-  border-radius: 0.1rem;
+
+#form-fecha fieldset {
+  border: none;
 }
 
 .alerta-form {
@@ -498,6 +509,12 @@ form fieldset {
 .alerta-form .error {
   background-color: #8b1212;
   color: #F4F0E9;
+  font-weight: 700;
+}
+.alerta-form .exito {
+  background-color: #02db02;
+  color: #393939;
+  font-weight: 700;
 }
 
 #mapa .avaiable {

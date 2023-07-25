@@ -2,18 +2,33 @@ const checkIn = document.querySelector("#checkin");
 const checkOut = document.querySelector("#checkout");
 const room = document.querySelectorAll(".room");
 const formFecha = document.querySelector("#form-fecha");
+const acommodationSubmit = document.querySelector("#acommodation-submit");
+const map = document.querySelector("#mapa");
+var tipo;
 var roomnumber;
 var checkInValue;
 var checkOutValue;
+var acommodationType;
 var lang;
 
 document.addEventListener("DOMContentLoaded", function () {
   eventListeners();
   // Obtencion del lenguaje
   lang = lenguaje();
+  rellenarFechas();
 });
 
 function eventListeners() {
+  map.addEventListener("click", function () {
+    if (checkInValue === undefined && checkOutValue === undefined) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select dates first!",
+      });
+    }
+  });
+
   checkIn.addEventListener("change", function (e) {
     checkInValue = e.target.value;
     comprobarEstado();
@@ -22,11 +37,41 @@ function eventListeners() {
     checkOutValue = e.target.value;
     comprobarEstado();
   });
+  acommodationSubmit.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    tipo = document.querySelector('input[name="tipo"]:checked');
+    if (checkInValue !== undefined && checkOutValue !== undefined) {
+      if (tipo !== null) {
+        console.log(
+          `/acommodation/confirm?checkIn=${checkInValue}&checkOut=${checkOutValue}&tipo=${tipo.value}`
+        );
+
+        //window.location.href = `/acommodation/confirm?roomNumber=${roomnumber}&checkIn=${checkInValue}&checkOut=${checkOutValue}&tipo=${tipo.value}`;
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please select one acommodation option!",
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+
+        text: "Please select dates!",
+      });
+    }
+  });
 }
 
 function eventListenersRooms() {
   room.forEach((room) => {
     room.addEventListener("click", (e) => {
+      tipo = document.querySelector('input[name="tipo"][value="room"]');
+      tipo.checked = true;
+
       // Dentro del event listener
 
       // Obtener el número de habitación del ID del elemento clicado
@@ -46,39 +91,45 @@ function eventListenersRooms() {
 }
 
 async function comprobarEstado() {
-  if (
-    checkInValue !== undefined &&
-    checkOutValue !== undefined &&
-    checkInValue <= checkOutValue
-  ) {
-    let datosResultado = [];
+  if (checkInValue !== undefined && checkOutValue !== undefined) {
+    if (
+      checkInValue !== undefined &&
+      checkOutValue !== undefined &&
+      checkInValue <= checkOutValue
+    ) {
+      let datosResultado = [];
 
-    const datos = new FormData();
-    datos.append("checkIn", checkInValue);
-    datos.append("checkOut", checkOutValue);
+      const datos = new FormData();
+      datos.append("checkIn", checkInValue);
+      datos.append("checkOut", checkOutValue);
 
-    try {
-      const url = "http://localhost:3000/api/rooms";
-      const respuesta = await fetch(url, {
-        method: "POST",
-        body: datos,
-      });
-      const resultado = await respuesta.json();
-
-      if (resultado["resultado"] !== null) {
-        resultado["resultado"].forEach((objeto) => {
-          datosResultado.push(objeto["castillo"]);
+      try {
+        const url = "http://localhost:3000/api/rooms";
+        const respuesta = await fetch(url, {
+          method: "POST",
+          body: datos,
         });
-        actualizarRooms(datosResultado);
-      } else {
-        datosResultado = [];
-        actualizarRooms(datosResultado);
+        const resultado = await respuesta.json();
+
+        if (resultado["resultado"] !== null) {
+          resultado["resultado"].forEach((objeto) => {
+            datosResultado.push(objeto["castillo"]);
+          });
+          actualizarRooms(datosResultado);
+        } else {
+          datosResultado = [];
+          actualizarRooms(datosResultado);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "The checkout date must be after the check-in date!",
+      });
     }
-  } else {
-    //alert('Wrong Dates');
   }
 }
 
@@ -145,6 +196,8 @@ function mostrarRoom(datosHabitacion) {
   cerrarModal.onclick = () => {
     overlay.remove();
     body.classList.remove("no-scroll");
+    tipo = document.querySelector('input[name="tipo"][value="room"]');
+    tipo.checked = false;
   };
 
   cerrarModal.innerHTML = `
@@ -195,16 +248,16 @@ function mostrarRoom(datosHabitacion) {
     noFoto.classList.add("no-foto");
     card.appendChild(noFoto);
   }
-  
+
   // Boton submit
   const submit = document.createElement("BUTTON");
   submit.textContent = "Select Room";
   submit.classList.add("boton", "boton-submit");
   card.appendChild(submit);
-  
-  submit.addEventListener('click',()=>{
-    window.location.href = `/acommodation/confirm?roomNumber=${roomnumber}&checkIn=${checkInValue}&checkOut=${checkOutValue}`;
-  })
+
+  submit.addEventListener("click", (e) => {
+    window.location.href = `/acommodation/confirm?roomNumber=${roomnumber}&checkIn=${checkInValue}&checkOut=${checkOutValue}&tipo=room`;
+  });
 
   //nombre, descripcionIngles, descripcionCheco, capacidad, precio, castillo
 }
@@ -269,8 +322,7 @@ function detectarDeslizamiento(elemento) {
 }
 
 function imagenHabitacion(divImagen, fotosHabitacion, index) {
-
-    // TODO mantener div imagen pero cambiar solo la img
+  // TODO mantener div imagen pero cambiar solo la img
   var i = index;
   // determinar longitud array
   const arrayLenght = Object.keys(fotosHabitacion).length - 1;
@@ -311,7 +363,7 @@ function imagenHabitacion(divImagen, fotosHabitacion, index) {
   divImagen.appendChild(anteriorFoto);
 
   siguienteFoto.addEventListener("click", () => {
-    console.log("siguiente");
+    //console.log("siguiente");
     let newIndex;
     newIndex = fotoSiguiente(i, arrayLenght);
     // volver a llamar la funcion imagenHabitacion
@@ -321,7 +373,7 @@ function imagenHabitacion(divImagen, fotosHabitacion, index) {
   });
 
   anteriorFoto.addEventListener("click", () => {
-    console.log("siguiente");
+    //console.log("siguiente");
     let newIndex;
     newIndex = fotoAnterior(i, arrayLenght);
     // volver a llamar la funcion imagenHabitacion
@@ -368,4 +420,20 @@ function fotoAnterior(index, arrayLenght) {
     newIndex--;
   }
   return newIndex;
+}
+
+function rellenarFechas() {
+  if (checkIn.value !== "") {
+    checkInValue = checkIn.value;
+  }
+  if (checkOut.value !== "") {
+    checkOutValue = checkOut.value;
+  }
+
+  if (checkInValue === undefined) {
+    checkIn.value = "";
+  }
+  if (checkOutValue === undefined) {
+    checkOut.value = "";
+  }
 }

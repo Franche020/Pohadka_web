@@ -14,9 +14,9 @@ class Usuario extends ActiveRecord {
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
-        $this->noRegistrado = $args['noRegistrado'] ?? '';
+        $this->noRegistrado = $args['noRegistrado'] ?? 0;
         $this->confirmado = $args['confirmado'] ?? 0;
-        $this->admin = $args['admin'] ?? '';
+        $this->admin = $args['admin'] ?? 0;
         $this->token = $args['token'] ?? '';
     }
 
@@ -32,15 +32,21 @@ class Usuario extends ActiveRecord {
     public $token;
 
     // Validar el Login de Usuarios
+    // TODO convertir a validacion en dos idiomas
+
     public function validarLogin() {
         if(!$this->email) {
-            self::$alertas['error'][] = 'El Email del Usuario es Obligatorio';
+            self::$alertas['error']['en'][] ='The user\'s email is required';
+            self::$alertas['error']['cz'][] ='E-mail uživatele je povinný';
+
         }
         if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            self::$alertas['error'][] = 'Email no válido';
+            self::$alertas['error']['en'][] ='Invalid email.';
+            self::$alertas['error']['cz'][] ='Neplatný e-mail.';
         }
         if(!$this->password) {
-            self::$alertas['error'][] = 'El Password no puede ir vacio';
+            self::$alertas['error']['en'][] ='The password cannot be empty';
+            self::$alertas['error']['cz'][] ='Heslo nemůže být prázdné';
         }
         return self::$alertas;
 
@@ -49,19 +55,24 @@ class Usuario extends ActiveRecord {
     // Validación para cuentas nuevas
     public function validar_cuenta() {
         if(!$this->nombre) {
-            self::$alertas['error'][] = 'El Nombre es Obligatorio';
+            self::$alertas['error']['en'][] = 'The name is required';
+            self::$alertas['error']['cz'][] = 'Jméno je povinné';
         }
         if(!$this->apellido) {
-            self::$alertas['error'][] = 'El Apellido es Obligatorio';
+            self::$alertas['error']['en'][] = 'The last name is required';
+            self::$alertas['error']['cz'][] = 'Příjmení je povinné';
         }
         if(!$this->email) {
-            self::$alertas['error'][] = 'El Email es Obligatorio';
+            self::$alertas['error']['en'][] = 'The email is required';
+            self::$alertas['error']['cz'][] = 'E-mail je povinný';
         }
         if(!$this->password) {
-            self::$alertas['error'][] = 'El Password no puede ir vacio';
+            self::$alertas['error']['en'][] = 'The password cannot be empty';
+            self::$alertas['error']['cz'][] = 'Heslo nesmí být prázdné';
         }
         if(strlen($this->password) < 6) {
-            self::$alertas['error'][] = 'El password debe contener al menos 6 caracteres';
+            self::$alertas['error']['en'][] = 'The password must be at least 6 characters long';
+            self::$alertas['error']['cz'][] = 'Heslo musí obsahovat minimálně 6 znaků';
         }
         // if($this->password !== $this->password2) {
         //     self::$alertas['error'][] = 'Los password son diferentes';
@@ -72,10 +83,12 @@ class Usuario extends ActiveRecord {
     // Valida un email
     public function validarEmail() {
         if(!$this->email) {
-            self::$alertas['error'][] = 'El Email es Obligatorio';
+            self::$alertas['error']['en'][] = 'The email is required';
+            self::$alertas['error']['cz'][] = 'E-mail je povinný';
         }
         if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            self::$alertas['error'][] = 'Email no válido';
+            self::$alertas['error']['en'][] = 'Invalid email';
+            self::$alertas['error']['cz'][] = 'Neplatný e-mail';
         }
         return self::$alertas;
     }
@@ -83,10 +96,12 @@ class Usuario extends ActiveRecord {
     // Valida el Password 
     public function validarPassword() {
         if(!$this->password) {
-            self::$alertas['error'][] = 'El Password no puede ir vacio';
+            self::$alertas['error']['en'][] = 'The password cannot be empty';
+            self::$alertas['error']['error'][] = 'Heslo nemůže být prázdné';
         }
         if(strlen($this->password) < 6) {
-            self::$alertas['error'][] = 'El password debe contener al menos 6 caracteres';
+            self::$alertas['error']['en'][] = 'The password must be at least 6 characters long';
+            self::$alertas['error']['cz'][] = 'Heslo musí obsahovat minimálně 6 znaků';
         }
         return self::$alertas;
     }

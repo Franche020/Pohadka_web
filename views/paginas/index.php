@@ -1,5 +1,5 @@
 
-<main class="contenedor contenedor--hero">
+<main class="card card--hero">
         <div class="hero">
             <div class="hero__texto">
                 <h2>Welcome to our nature community</h2>                
@@ -7,7 +7,7 @@
         </div>
     </main>
 
-    <section id="discover" class="contenedor discover">
+    <section id="discover" class="card discover">
         <div class="discover__texto">    
             <h3>Discover harmony with nature!</h3>
             <p>Experience the enchantment of Lancov's forest community in Czechia. Immerse yourself in nature's embrace, explore winding trails, and discover hidden wonders. Find solace in the tranquility of the woods and let Lancov's natural beauty captivate your senses.</p>
@@ -24,7 +24,7 @@
                 
     </section>
 
-    <section id="accommodation" class="contenedor live">
+    <section id="accommodation" class="card live">
         <div class="live__texto">
             <h3>Live with Us</h3>
             <p>Indulge in the allure of our handcrafted, artfully decorated rooms in the midst of the forest. Each space is thoughtfully designed to blend rustic charm with elegant craftsmanship. Immerse yourself in a cozy and unique ambiance that seamlessly harmonizes with the natural surroundings. Discover a haven where comfort and artistic beauty intertwine, creating a truly magical retreat.</p>
@@ -41,7 +41,7 @@
         </a>
     </section>
 
-    <section id="events" class="contenedor eventos">
+    <section id="events" class="card eventos">
         <div class="events__texto">
             <h3>Our Events</h3>
             <ul>

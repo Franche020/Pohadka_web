@@ -23,3 +23,12 @@
         
     }
 }
+.botonera--horizontal2 {
+    gap:1rem;
+    display: flex;
+    flex-direction: row;
+    .boton{
+        flex-basis: 50%;
+        margin: 0;
+    }
+}

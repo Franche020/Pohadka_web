@@ -3,6 +3,7 @@
 
 
 form {
+
     fieldset {
         border-radius: 0.5rem;
         margin: 1rem;
@@ -10,20 +11,20 @@ form {
     }
 }
 .entrada {
-    margin: 1rem;
+    margin: 1rem 0;
     gap:0.5rem;
     display: flex;
     flex-direction: column;
-
-    
-    // TODO eliminar lo siguiente
-    p {
-        background-color: #fff;
-        margin: 0;
+    input {
+        padding: 2rem 4rem;
+        background-color: v.$gris-medio;
+        border: none;
+        border-radius: 0.5rem;
     }
-    .editor-border {
-        border: 1px solid v.$gris-oscuro;
-        padding: 0;
-        border-radius: 0.1rem;
+    
+}
+#form-fecha{
+    fieldset {
+        border: none;
     }
 }

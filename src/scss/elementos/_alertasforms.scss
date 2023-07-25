@@ -14,5 +14,11 @@
     .error{
         background-color: v.$rojo;
         color: v.$gris-claro;
+        font-weight: 700;
+    }
+    .exito{
+        background-color: v.$verde;
+        color: v.$negro;
+        font-weight: 700;
     }
 }

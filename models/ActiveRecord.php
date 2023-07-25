@@ -16,8 +16,8 @@ class ActiveRecord {
     }
 
     // Setear un tipo de Alerta
-    public static function setAlerta($tipo, $mensaje) {
-        static::$alertas[$tipo][] = $mensaje;
+    public static function setAlerta($tipo, $lang, $mensaje) {
+        static::$alertas[$tipo][$lang][] = $mensaje;
     }
 
     // Obtener las alertas
@@ -142,6 +142,7 @@ class ActiveRecord {
     // Busqueda Where con Columna 
     public static function where($columna, $valor) {
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
+        //debuguear($query);
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
@@ -152,14 +153,14 @@ class ActiveRecord {
         $atributos = $this->sanitizarAtributos();
 
         // Insertar en la base de datos
-        $query = " INSERT INTO " . static::$tabla . " ( ";
+        $query = "INSERT INTO " . static::$tabla . " ( ";
         $query .= join(', ', array_keys($atributos));
         $query .= " ) VALUES (' "; 
         $query .= join("', '", array_values($atributos));
-        $query .= " ') ";
-        
+        $query .= "') ";
 
-        // debuguear($query); // Descomentar si no te funciona algo
+
+        //debuguear($query); // Descomentar si no te funciona algo
 
         // Resultado de la consulta
         $resultado = self::$db->query($query);
