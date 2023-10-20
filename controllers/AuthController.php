@@ -35,6 +35,9 @@ class AuthController {
                         $_SESSION['apellido'] = $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['admin'] = $usuario->admin ?? null;
+                        $_SESSION['telefono'] = $usuario->telefono;
+
+                        header('location: /');
                         
                     } else {
                         Usuario::setAlerta('error','en', 'Incorrect Password');
@@ -55,11 +58,10 @@ class AuthController {
     }
 
     public static function logout() {
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            session_start();
-            $_SESSION = [];
-            header('Location: /');
-        }
+        session_start();
+        $_SESSION = [];
+        header('Location: /');
+
        
     }
 
@@ -78,26 +80,47 @@ class AuthController {
             if(empty($alertas)) {
                 $existeUsuario = Usuario::where('email', $usuario->email);
                 
-                if($existeUsuario && $existeUsuario->noRegistrado === 0) {
+                if($existeUsuario && $existeUsuario->noRegistrado === '0') {
                     Usuario::setAlerta('error','en', 'The user is already registered');
                     Usuario::setAlerta('error','cz', 'Uživatel je již registrován');
                     $alertas = Usuario::getAlertas();
                 } else {
-                    // Hashear el password
-                    $usuario->hashPassword();
                     
-                    // Generar el Token
-                    $usuario->crearToken();
-                    //TODO debugear esto
-                    //debuguear($usuario);
-                    // Crear un nuevo usuario
-                    $resultado =  $usuario->guardar();
+                    // El sigiente codigo es para un usuario temporal, abajo se replicara el codigo para un usuario nuevo
+                    if ($existeUsuario->noRegistrado === '1') {
+                        $existeUsuario->sincronizar($_POST);
+
+                        // Hashear el password
+                        $existeUsuario->hashPassword();
+
+                        // Generar el Token
+                        $existeUsuario->crearToken();
+                        // debuguear($existeUsuario);
+                        $existeUsuario->noRegistrado = 0;
+                        $resultado =  $existeUsuario->guardar();
+
+                        $email = new Email($existeUsuario->email, $existeUsuario->nombre, $existeUsuario->token);
+                        $email->enviarConfirmacion($lenguaje);
                     
-                    // Enviar email
-                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
-                    $email->enviarConfirmacion($lenguaje);
-                    
-                    //debuguear($email);
+                    } else {
+                        // Hashear el password
+                        $usuario->hashPassword();
+                        
+                        // Generar el Token
+                        $usuario->crearToken();
+
+                        //debuguear($usuario);
+    
+                        // Crear un nuevo usuario
+                        $resultado =  $usuario->guardar();
+                        
+                        // Enviar email
+                        $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                        $email->enviarConfirmacion($lenguaje);
+                        
+                        //debuguear($email);
+                    }
+                    // debuguear($resultado);
 
                     if($resultado) {
                         header('Location: /message'); // TODO redireccionar correctamente

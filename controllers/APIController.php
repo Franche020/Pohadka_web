@@ -23,7 +23,7 @@ class APIController {
            OR (r.fecha_inicio <= '".$checkOut."' AND r.fecha_fin >= '".$checkOut."')
            OR (r.fecha_inicio >= '".$checkIn."' AND r.fecha_fin <= '".$checkOut."')";
 
-        //debuguear($query);
+           
         $resultado = ReservasHabitaciones::SQL($query);
         if(empty($resultado)) {
             $resultado = null;

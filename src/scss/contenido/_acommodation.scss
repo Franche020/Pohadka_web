@@ -1,0 +1,38 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.acommodation {
+    main {
+        @include m.desktop {
+            order: 1;
+
+        }
+    }
+    section {
+        @include m.desktop {
+            order: 2;
+
+        }
+    }
+    .acommodation__imagen {
+        img{
+            display: none;
+            border-radius: 0.5rem;
+        }
+        @include m.desktop {
+            img{
+                display: block;
+                height: 71rem;
+            }
+        }
+    }
+}   
+fieldset {
+    #mapa {
+        display: flex;
+        justify-content: center;
+        svg {
+            margin-top: 2rem
+        }
+    }
+}

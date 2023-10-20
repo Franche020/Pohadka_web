@@ -43,11 +43,9 @@ function eventListeners() {
     tipo = document.querySelector('input[name="tipo"]:checked');
     if (checkInValue !== undefined && checkOutValue !== undefined) {
       if (tipo !== null) {
-        console.log(
-          `/acommodation/confirm?checkIn=${checkInValue}&checkOut=${checkOutValue}&tipo=${tipo.value}`
-        );
+        //console.log(`/acommodation/confirm?roomNumber=${roomnumber}checkIn=${checkInValue}&checkOut=${checkOutValue}&tipo=${tipo.value}`);
 
-        //window.location.href = `/acommodation/confirm?roomNumber=${roomnumber}&checkIn=${checkInValue}&checkOut=${checkOutValue}&tipo=${tipo.value}`;
+        window.location.href = `/acommodation/confirm?checkIn=${checkInValue}&checkOut=${checkOutValue}&tipo=${tipo.value}`;
       } else {
         Swal.fire({
           icon: "error",
@@ -69,23 +67,27 @@ function eventListeners() {
 function eventListenersRooms() {
   room.forEach((room) => {
     room.addEventListener("click", (e) => {
-      tipo = document.querySelector('input[name="tipo"][value="room"]');
-      tipo.checked = true;
 
-      // Dentro del event listener
+      if (room.classList.contains('avaiable')){
+        tipo = document.querySelector('input[name="tipo"][value="room"]');
+        tipo.checked = true;
+  
+        // Dentro del event listener
+  
+        // Obtener el número de habitación del ID del elemento clicado
+        roomnumber = e.target.id.charAt(4);
+  
+        // Llamar a la función obtenerHabitacion() y obtener los detalles de la habitación
+        obtenerHabitacion(roomnumber)
+          .then((datosHabitacion) => {
+            // Pasar el resultado a la función mostrarRoom()
+            mostrarRoom(datosHabitacion);
+          })
+          .catch(() => {
+            console.log("ERROR EN API");
+          });
 
-      // Obtener el número de habitación del ID del elemento clicado
-      roomnumber = e.target.id.charAt(4);
-
-      // Llamar a la función obtenerHabitacion() y obtener los detalles de la habitación
-      obtenerHabitacion(roomnumber)
-        .then((datosHabitacion) => {
-          // Pasar el resultado a la función mostrarRoom()
-          mostrarRoom(datosHabitacion);
-        })
-        .catch(() => {
-          console.log("ERROR EN API");
-        });
+      }
     });
   });
 }
@@ -110,7 +112,7 @@ async function comprobarEstado() {
           body: datos,
         });
         const resultado = await respuesta.json();
-
+        
         if (resultado["resultado"] !== null) {
           resultado["resultado"].forEach((objeto) => {
             datosResultado.push(objeto["castillo"]);
@@ -322,7 +324,7 @@ function detectarDeslizamiento(elemento) {
 }
 
 function imagenHabitacion(divImagen, fotosHabitacion, index) {
-  // TODO mantener div imagen pero cambiar solo la img
+
   var i = index;
   // determinar longitud array
   const arrayLenght = Object.keys(fotosHabitacion).length - 1;
@@ -423,6 +425,7 @@ function fotoAnterior(index, arrayLenght) {
 }
 
 function rellenarFechas() {
+
   if (checkIn.value !== "") {
     checkInValue = checkIn.value;
   }
@@ -435,5 +438,8 @@ function rellenarFechas() {
   }
   if (checkOutValue === undefined) {
     checkOut.value = "";
+  }
+  if (checkInValue !== undefined && checkOutValue !== undefined) {
+    comprobarEstado();
   }
 }

@@ -1,0 +1,15 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.reserva {
+    padding: 2rem;
+    border-bottom: 1px solid v.$negro;
+
+    &:first-of-type {
+        padding-top: 0;
+    }
+    &:last-of-type {
+        padding-bottom: 0;
+        border: none;
+    }
+}

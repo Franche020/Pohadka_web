@@ -50,10 +50,11 @@ class ImagesController
         return $arrayNames;
     }
 
-    public static function deleteEventImage($id = '')
+    public static function deleteEventImage($id = '', $alert = true)
     {
         // TODO ver posibilidad de hacerlo para evento o galeria
         $id = $_POST['imagenId'] ?? $id;
+        $alert = $_POST['alert'] ?? $alert;
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         $imagen = FotosEventos::find($id);
@@ -64,16 +65,21 @@ class ImagesController
 
         $resultado = $imagen->eliminar();
 
-        if ($resultado) { // Si el resultado es valido
-            $redireccion = 'location: ' . ($_SERVER['HTTP_REFERER']) . '&alerta=5';
-            header($redireccion);
+        if ($alert) {
+            if ($resultado) { // Si el resultado es valido
+                $redireccion = 'location: ' . ($_SERVER['HTTP_REFERER']) . '&alerta=5';
+                header($redireccion);
+            }
+        } else {
+            return $resultado;
         }
     }
 
-    public static function deleteAcommodationImage($id = '')
+    public static function deleteAcommodationImage($id = '', $alert = false)
     {
 
         $id = $_POST['imagenId'] ?? $id;
+        $alert = $_POST['alert'] ?? $alert;
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         $imagen = FotosHabitaciones::find($id);
@@ -84,9 +90,13 @@ class ImagesController
 
         $resultado = $imagen->eliminar();
 
-        if ($resultado) { // Si el resultado es valido
-            $redireccion = 'location: ' . ($_SERVER['HTTP_REFERER']) . '&alerta=5';
-            header($redireccion);
+        if ($alert){
+            if ($resultado) { // Si el resultado es valido
+                $redireccion = 'location: ' . ($_SERVER['HTTP_REFERER']) . '&alerta=5';
+                header($redireccion);
+            }
+        } else {
+            return $resultado;
         }
     }
 

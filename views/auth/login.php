@@ -5,13 +5,11 @@
 <form method="POST" enctype="multipart/form-data">
     <div class="entrada">
         <label for="Email">Email:</label>
-        <input type="text" id="email" name="email" value="<?php //echo $evento->nombre 
-                                                            ?>" required>
+        <input type="text" id="email" name="email" value="" required>
     </div>
     <div class="entrada">
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" value="<?php //echo $evento->nombre 
-                                                                    ?>" required>
+        <input type="password" id="password" name="password" value="" required>
     </div>
     <div class="botonera--horizontal2">
         <a href="/registration" class="boton">Create Account</a>

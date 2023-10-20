@@ -12,6 +12,7 @@ foreach ($fotosHabitacion as $fotoHabitacion) {
     <div>
         <form action="/admin/acommodation/image/delete" method="POST">
             <input type="number" name="imagenId" id="" value="<?php echo $fotoHabitacion->id; ?>" hidden>
+            <input type="number" name="alert" id="" value="true" hidden>
             <input class="boton boton--eliminar" type="submit" value="Delete Imagen">
         </form>
         <form action="/admin/acommodation/image/update" method="GET">

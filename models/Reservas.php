@@ -5,7 +5,7 @@ namespace Model;
 class Reservas extends ActiveRecord{
     
     protected static $tabla = 'reservas';
-    protected static $columasDB = ['id', 'usuarioId', 'fecha_reserva', 'fecha_inicio', 'fecha_fin'];
+    protected static $columnasDB = ['id', 'usuarioId', 'fecha_reserva', 'fecha_inicio', 'fecha_fin'];
     
     public function __construct($args = [])
     {
@@ -21,4 +21,17 @@ class Reservas extends ActiveRecord{
     public $fecha_reserva;
     public $fecha_inicio;
     public $fecha_fin;
+
+    public static function getReservasbyUser (int $id) :array {
+        $query ="SELECT r.id AS reserva_id, r.fecha_reserva, r.fecha_inicio, r.fecha_fin,
+            h.tipo AS habitacion_tipo, h.precio AS habitacion_precio
+            FROM reservas AS r
+            JOIN reservasHabitaciones AS rh ON r.id = rh.reservaId
+            JOIN habitaciones AS h ON rh.habitacionId = h.id
+            WHERE r.usuarioId = " .$id;
+
+        $resultado = self::SQL($query);
+
+        return $resultado;
+    }
 }

@@ -24,6 +24,7 @@ class HabitacionController {
         $lenguaje = lenguaje(); // Obtengo el lenguaje de la web para poder pasarlo a la vista y renderizar el contenido que toque
         $alertas = Habitacion::getAlertas();
         $habitacion = new Habitacion();
+        $resultado = false;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $habitacion = new Habitacion($_POST['habitacion']);
@@ -34,7 +35,6 @@ class HabitacionController {
                 $filenames = $imagen->uploadImage('habitacion');
                 //debuguear($filenames);
             }
-            // TODO depurar toda esta parte
 
             if (empty($alertas)){
                 $resultado = $habitacion->guardar();
@@ -122,14 +122,19 @@ class HabitacionController {
     }
 
     public static function delete () {
-        
-        if ($_SERVER['REQUEST_METHOD']=== 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id = $_POST ['id'] ??'';
             $id = filter_var($id , FILTER_VALIDATE_INT);
+            $imagenes = FotosHabitaciones::getFotosbyRoom($id);
+            
+            foreach($imagenes as $imagen) {
+                ImagesController::deleteAcommodationImage($imagen->id);
+            }
+
             $habitacion = Habitacion::find($id);
             $resultado = $habitacion->eliminar();
             if ($resultado){ // Si el resultado es valido
-                header('location: /admin/acommodation?alerta=2');
+                header('location: /admin/acommodation?alert=2');
             }
         }
     }

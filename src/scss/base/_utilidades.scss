@@ -1,4 +1,4 @@
-// TODO mover esto a utilidades
+
 .flex-col-separacion-10 {
     display: flex;
     flex-direction: column;
@@ -8,4 +8,11 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+}
+.text-derecha{
+    text-align: end;
+}
+
+.text-center {
+    text-align: center;
 }

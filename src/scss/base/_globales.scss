@@ -12,11 +12,16 @@ body {
     font-family: v.$fuente_principal;
     font-size: 1.8rem;
     display: flex;
+    flex-wrap: wrap; 
+    min-height: 100vh;
     flex-direction: column;
     gap: 3.4rem;
+    background: rgb(178,189,184);
+    background: linear-gradient(0deg, rgba(178,189,184,0.756827731092437) 0%, rgba(164,163,163,0.7904411764705882) 68%);
 }
 a {
     text-decoration: none;
+    color: v.$negro;
 }
 img {
     width: 100%;

@@ -32,7 +32,6 @@ class Usuario extends ActiveRecord {
     public $token;
 
     // Validar el Login de Usuarios
-    // TODO convertir a validacion en dos idiomas
 
     public function validarLogin() {
         if(!$this->email) {
@@ -65,6 +64,10 @@ class Usuario extends ActiveRecord {
         if(!$this->email) {
             self::$alertas['error']['en'][] = 'The email is required';
             self::$alertas['error']['cz'][] = 'E-mail je povinný';
+        }
+        if(!$this->telefono) {
+            self::$alertas['error']['en'][] = 'The phone number is required';
+            self::$alertas['error']['cz'][] = 'Telefonní číslo je povinné';
         }
         if(!$this->password) {
             self::$alertas['error']['en'][] = 'The password cannot be empty';
@@ -132,5 +135,26 @@ class Usuario extends ActiveRecord {
     // Generar un Token
     public function crearToken() : void {
         $this->token = uniqid();
+    }
+    
+    public function validar_temporal() {
+        if(!$this->nombre) {
+            self::$alertas['error']['en'][] = 'The name is required';
+            self::$alertas['error']['cz'][] = 'Jméno je povinné';
+        }
+        if(!$this->apellido) {
+            self::$alertas['error']['en'][] = 'The last name is required';
+            self::$alertas['error']['cz'][] = 'Příjmení je povinné';
+        }
+        if(!$this->email) {
+            self::$alertas['error']['en'][] = 'The email is required';
+            self::$alertas['error']['cz'][] = 'E-mail je povinný';
+        }
+        if(!$this->telefono) {
+            self::$alertas['error']['en'][] = 'The phone number is required';
+            self::$alertas['error']['cz'][] = 'Telefonní číslo je povinné';
+        }
+
+        return self::$alertas;
     }
 }

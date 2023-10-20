@@ -6,8 +6,7 @@
     
     <div class="entrada">
         <label for="Email">Email:</label>
-        <input type="text" id="email" name="email" value="<?php //echo $evento->nombre 
-                                                            ?>" required>
+        <input type="text" id="email" name="email" value="" required>
     </div>
 
     <div class="botonera--horizontal2">

@@ -6,8 +6,26 @@
     margin: 0 auto;
     border-radius: 1rem;
     border: 2px solid v.$card-border;
-    width: 90%;
+    width: 95%;
     background-color: v.$gris-claro;
     padding: 2rem 1rem;
+    @include m.xl_desktop {
+        width: 70%;
+    }
+
+}
+
+.contenedor {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    @include m.desktop {
+        flex-direction: row;
+        width: 80%;
+    }
+    @include m.xl_desktop {
+        width: 75%;
+    }
 }
 

@@ -7,19 +7,19 @@
     <form method="POST" enctype="multipart/form-data">
         <div class="entrada">
             <label for="nombre">Name:</label>
-            <input type="text" id="nombre" name="nombre" value="<?php echo $usuario->nombre ?>" required placeholder="Name">
+            <input type="text" id="nombre" name="nombre" value="<?php echo s($usuario->nombre) ?>" required placeholder="Name">
         </div>
         <div class="entrada">
             <label for="apellido">Last Name:</label>
-            <input type="text" id="apellido" name="apellido" value="<?php echo $usuario->apellido ?>" required placeholder="Last Name">
+            <input type="text" id="apellido" name="apellido" value="<?php echo s($usuario->apellido) ?>" required placeholder="Last Name">
         </div>
         <div class="entrada">
             <label for="Email">Email:</label>
-            <input type="text" id="email" name="email" value="<?php echo $usuario->email ?>" required placeholder="Email">
+            <input type="text" id="email" name="email" value="<?php echo s($usuario->email) ?>" required placeholder="Email">
         </div>
         <div class="entrada">
             <label for="telefono">Phone Number:</label>
-            <input type="phone" id="telefono" name="telefono" value="<?php echo $usuario->telefono ?>" required placeholder="Phone Number">
+            <input type="phone" id="telefono" name="telefono" value="<?php echo s($usuario->telefono) ?>" required placeholder="Phone Number">
         </div>
         <div class="entrada">
             <label for="password">Password:</label>

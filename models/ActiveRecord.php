@@ -142,7 +142,7 @@ class ActiveRecord {
     // Busqueda Where con Columna 
     public static function where($columna, $valor) {
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
-        //debuguear($query);
+        debuguear($query);
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
@@ -160,7 +160,7 @@ class ActiveRecord {
         $query .= "') ";
 
 
-        //debuguear($query); // Descomentar si no te funciona algo
+        // debuguear($query); // Descomentar si no te funciona algo
 
         // Resultado de la consulta
         $resultado = self::$db->query($query);

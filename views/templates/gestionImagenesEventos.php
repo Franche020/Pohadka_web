@@ -11,6 +11,7 @@ foreach ($fotosEvento as $fotoEvento) {
 
     <div>
         <form action="/admin/events/image/delete" method="POST">
+            <input type="number" name="alert" id="" value="true" hidden>
             <input type="number" name="imagenId" id="" value="<?php echo $fotoEvento->id; ?>" hidden>
             <input class="boton boton--eliminar" type="submit" value="Delete Imagen">
         </form>

@@ -10,6 +10,7 @@ use Controllers\PaginaController;
 use Controllers\EventosController;
 use Controllers\ReservasController;
 use Controllers\HabitacionController;
+use Controllers\UsuariosController;
 
 $router = new Router();
 
@@ -26,6 +27,7 @@ $router->get('/events', [EventosController::class, 'index']);
 $router->get('/acommodation', [ReservasController::class, 'index']);
 $router->get('/acommodation/confirm', [ReservasController::class, 'confirm']);
 $router->post('/acommodation/confirm', [ReservasController::class, 'confirm']);
+$router->get('/acommodation/done', [ReservasController::class, 'reservaHecha']);
 
 
 // API
@@ -58,7 +60,7 @@ $router->post('/admin/events/image/update',[ImagesController::class, 'updateEven
 // Login
 $router->get('/login', [AuthController::class, 'login']);
 $router->post('/login', [AuthController::class, 'login']);
-$router->post('/logout', [AuthController::class, 'logout']);
+$router->get('/logout', [AuthController::class, 'logout']);
 
 // Crear Cuenta
 $router->get('/registration', [AuthController::class, 'registro']);
@@ -76,6 +78,8 @@ $router->post('/reset', [AuthController::class, 'reestablecer']);
 $router->get('/message', [AuthController::class, 'mensaje']);
 $router->get('/confirm-account', [AuthController::class, 'confirmar']);
 
+// User Profile
+$router->get('/user-profile', [UsuariosController::class, 'index']);
 
 // IMAGENES
 $router->post('/upload', [ImagesController::class, 'uploadImage']);
